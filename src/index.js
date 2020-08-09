@@ -12,18 +12,10 @@ const client = new Discord.Client({
 
 // emoji that goes in the post title
 const tt = '⭐'
-let settings
 let guildID = ''
 let smugboardID = ''
 let messagePosted = {}
 let loading = true
-
-try {
-  settings = require('../config/settings.json')
-} catch (e) {
-  console.log(`a settings.json file has not been generated. ${e.stack}`)
-  process.exit()
-}
 
 // login to discord
 function login () {
