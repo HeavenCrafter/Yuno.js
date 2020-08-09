@@ -13,7 +13,7 @@ const client = new Discord.Client({
 // emoji that goes in the post title
 const tt = '⭐'
 let guildID = ''
-let smugboardID = ''
+let starboardID = ''
 let messagePosted = {}
 let loading = true
 
@@ -24,7 +24,7 @@ function login () {
 
 // load old messages into memory
 async function loadIntoMemory () {
-  const channel = client.guilds.cache.get(guildID).channels.cache.get(smugboardID)
+  const channel = client.guilds.cache.get(guildID).channels.cache.get(starboardID)
   let limit = process.env.fetchLimit
   console.log(`Loading ${limit} messages...`)
 
@@ -100,7 +100,7 @@ function manageBoard (reaction_orig) {
   const msg = reaction_orig.message
   const msgChannel = client.guilds.cache.get(guildID).channels.cache.get(msg.channel.id)
   const msgLink = `https://discordapp.com/channels/${guildID}/${msg.channel.id}/${msg.id}`
-  const postChannel = client.guilds.cache.get(guildID).channels.cache.get(smugboardID)
+  const postChannel = client.guilds.cache.get(guildID).channels.cache.get(starboardID)
 
   msgChannel.messages.fetch(msg.id).then((msg) => {
     // if message is older than set amount
@@ -181,7 +181,7 @@ function manageBoard (reaction_orig) {
 
 // delete a post
 function deletePost (msg) {
-  const postChannel = client.guilds.cache.get(guildID).channels.cache.get(smugboardID)
+  const postChannel = client.guilds.cache.get(guildID).channels.cache.get(starboardID)
   // if posted to channel board before
   if (messagePosted[msg.id]) {
     const editableMessageID = messagePosted[msg.id].psm
@@ -198,7 +198,7 @@ function deletePost (msg) {
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
   guildID = process.env.serverID
-  smugboardID = process.env.channelID
+  starboardID = process.env.channelID
   // fetch existing posts
   loadIntoMemory()
 })
@@ -207,7 +207,7 @@ client.on('ready', () => {
 client.on('messageReactionAdd', (reaction_orig, user) => {
   if (loading) return
   // if channel is posting channel
-  if (reaction_orig.message.channel.id == smugboardID) return
+  if (reaction_orig.message.channel.id == starboardID) return
   // if reaction is not desired emoji
   if (reaction_orig.emoji.name !== process.env.reactionEmoji) return
 
@@ -235,7 +235,7 @@ client.on('messageReactionAdd', (reaction_orig, user) => {
 client.on('messageReactionRemove', (reaction_orig, user) => {
   if (loading) return
   // if channel is posting channel
-  if (reaction_orig.message.channel.id == smugboardID) return
+  if (reaction_orig.message.channel.id == starboardID) return
   // if reaction is not desired emoji
   if (reaction_orig.emoji.name !== process.env.reactionEmoji) return
 
