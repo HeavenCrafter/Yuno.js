@@ -197,8 +197,8 @@ function deletePost (msg) {
 // ON READY
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
-  guildID = process.env.serverID
-  starboardID = process.env.channelID
+  guildID = (process.env.serverID)
+  starboardID = (process.env.channelID)
   // fetch existing posts
   loadIntoMemory()
 })
@@ -247,3 +247,5 @@ client.on('messageReactionRemove', (reaction_orig, user) => {
 client.on('messageReactionRemoveAll', (msg) => {
   deletePost(msg)
 })
+
+login()
