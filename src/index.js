@@ -19,12 +19,7 @@ let loading = true
 
 // login to discord
 function login () {
-  if (settings.token) {
-    console.log('Logging in with token...')
-    client.login(settings.token)
-  } else {
-    console.log('Error logging in: There may be an issue with you settings.json file')
-  }
+  client.login(process.env.BOT_TOKEN)
 }
 
 // load old messages into memory
@@ -252,6 +247,3 @@ client.on('messageReactionRemove', (reaction_orig, user) => {
 client.on('messageReactionRemoveAll', (msg) => {
   deletePost(msg)
 })
-
-
-login()
