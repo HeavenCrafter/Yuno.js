@@ -25,7 +25,7 @@ function login () {
 // load old messages into memory
 async function loadIntoMemory () {
   const channel = client.guilds.cache.get(guildID).channels.cache.get(smugboardID)
-  let limit = settings.fetchLimit
+  let limit = process.env.fetchLimit
   console.log(`Loading ${limit} messages...`)
 
   let messagesLeft = 0
@@ -65,7 +65,7 @@ async function loadIntoMemory () {
     // mapAccumulator[obj.key] = obj.val;
     mapAccumulator[String(obj.content.match(/\((\d{18})\)/)[1])] = {
       p: true,
-      lc: settings.threshold + 1,
+      lc: process.env.threshold + 1,
       legacy: true,
       psm: obj.id
     }
@@ -78,7 +78,7 @@ async function loadIntoMemory () {
     // mapAccumulator[obj.key] = obj.val;
     mapAccumulator[String(obj.embeds[0].footer.text).match(/\((\d{18})\)/)[1]] = {
       p: true,
-      lc: settings.threshold + 1,
+      lc: process.env.threshold + 1,
       legacy: false,
       psm: obj.id
     }
@@ -88,7 +88,7 @@ async function loadIntoMemory () {
 
   messagePosted = { ...postsMap, ...newPostsMap }
 
-  console.log(`Loaded ${Object.keys(postsMap).length} legacy posts, and ${Object.keys(newPostsMap).length} new posts in ${settings.reactionEmoji} channel`)
+  console.log(`Loaded ${Object.keys(postsMap).length} legacy posts, and ${Object.keys(newPostsMap).length} new posts in ${process.env.reactionEmoji} channel`)
 
   console.log('Loading complete')
   loading = false
@@ -106,8 +106,8 @@ function manageBoard (reaction_orig) {
     // if message is older than set amount
     const dateDiff = (new Date()) - reaction_orig.message.createdAt
     const dateCutoff = 1000 * 60 * 60 * 24
-    if (Math.floor(dateDiff / dateCutoff) >= settings.dateCutoff) {
-      console.log(`a message older than ${settings.dateCutoff} days was reacted to, ignoring`)
+    if (Math.floor(dateDiff / dateCutoff) >= process.env.dateCutoff) {
+      console.log(`a message older than ${process.env.dateCutoff} days was reacted to, ignoring`)
       return
     }
 
@@ -115,11 +115,11 @@ function manageBoard (reaction_orig) {
     // message is starred. This is to get the 'actual' count
     let found = false
     msg.reactions.cache.forEach((reaction) => {
-      if (reaction.emoji.name == settings.reactionEmoji) {
+      if (reaction.emoji.name == process.env.reactionEmoji) {
         found = true
-        console.log(`message ${settings.reactionEmoji}'d! (${msg.id}) in #${msgChannel.name} total: ${reaction.count}`)
+        console.log(`message ${process.env.reactionEmoji}'d! (${msg.id}) in #${msgChannel.name} total: ${reaction.count}`)
         // did message reach threshold
-        if (reaction.count >= settings.threshold) {
+        if (reaction.count >= process.env.threshold) {
           messagePosted[msg.id].lc = reaction.count
           // if message is already posted
           if (messagePosted[msg.id].hasOwnProperty('psm')) {
@@ -157,7 +157,7 @@ function manageBoard (reaction_orig) {
 
             const embed = new Discord.MessageEmbed()
               .setAuthor(msg.author.username, avatarURL)
-              .setColor(settings.hexcolor)
+              .setColor(process.env.hexcolor)
               .setDescription(contentMsg)
               .setImage(eURL)
               .setTimestamp(new Date())
@@ -197,8 +197,8 @@ function deletePost (msg) {
 // ON READY
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.username}!`)
-  guildID = settings.serverID
-  smugboardID = settings.channelID
+  guildID = process.env.serverID
+  smugboardID = process.env.channelID
   // fetch existing posts
   loadIntoMemory()
 })
@@ -209,7 +209,7 @@ client.on('messageReactionAdd', (reaction_orig, user) => {
   // if channel is posting channel
   if (reaction_orig.message.channel.id == smugboardID) return
   // if reaction is not desired emoji
-  if (reaction_orig.emoji.name !== settings.reactionEmoji) return
+  if (reaction_orig.emoji.name !== process.env.reactionEmoji) return
 
   const msg = reaction_orig.message
 
@@ -223,7 +223,7 @@ client.on('messageReactionAdd', (reaction_orig, user) => {
     }
   } else {
     if (messagePosted[msg.id].legacy) {
-      console.log(`Legacy message ${settings.reactionEmoji}'d, ignoring`)
+      console.log(`Legacy message ${process.env.reactionEmoji}'d, ignoring`)
       return
     }
   }
@@ -237,7 +237,7 @@ client.on('messageReactionRemove', (reaction_orig, user) => {
   // if channel is posting channel
   if (reaction_orig.message.channel.id == smugboardID) return
   // if reaction is not desired emoji
-  if (reaction_orig.emoji.name !== settings.reactionEmoji) return
+  if (reaction_orig.emoji.name !== process.env.reactionEmoji) return
 
 
   manageBoard(reaction_orig)
