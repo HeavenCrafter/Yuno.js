@@ -233,14 +233,9 @@ client.on('message', async message => {
   let msg = message.content.toLowerCase();
   let cmd = args.shift().toLowerCase();
   
-  message.flags = [];
-  while (args[0] && args[0][0] === "--") {
-    message.flags.push(args.shift().slice(1)); // Message Flags: --default, --ban, --parameter
-  }
-  
   if (msg.startsWith(prefix + 'starboard')) {
     message.channel.send(`\nLoaded ${Object.keys(messagePosted).length} previous posts in ${process.env.reactionEmoji} channel!`); // results.
-  } // easy way.
+  }
 })
 
 login()
