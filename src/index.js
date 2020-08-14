@@ -226,4 +226,21 @@ client.on('messageReactionRemoveAll', (msg) => {
 })
 
 
+client.on('message', async message => { 
+  let prefix = "!"
+  if (!message.content.startsWith(prefix)) return;
+  let args = message.content.slice(prefix.length).trim().split(/ +/g);
+  let msg = message.content.toLowerCase();
+  let cmd = args.shift().toLowerCase();
+  
+  message.flags = [];
+  while (args[0] && args[0][0] === "--") {
+    message.flags.push(args.shift().slice(1)); // Message Flags: --default, --ban, --parameter
+  }
+  
+  if (msg.startsWith(prefix + 'starboard')) {
+    message.channel.send(`\nLoaded ${Object.keys(messagePosted).length} previous posts in ${process.env.reactionEmoji} channel!`); // results.
+  } // easy way.
+})
+
 login()
