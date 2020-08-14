@@ -19,8 +19,14 @@ let loading = true
 
 // login to discord
 function login () {
-  client.login(process.env.BOT_TOKEN)
+  if (process.env.BOT_TOKEN) {
+    console.log('Logging in with token...')
+    client.login(process.env.BOT_TOKEN)
+  } else {
+    console.log('Error logging in: There may be an issue with you BOT_TOKEN variable')
+  }
 }
+
 
 async function * messagesIterator (channel, messagesLeft) {
   let before = null
@@ -50,13 +56,16 @@ async function loadIntoMemory () {
 
   // iterate through all messages as they're pulled
   for await (const message of loadMessages(channel, amount)) {
-    if (message.embeds.length > 0) {
-      if (message.embeds[0].footer) {
-        messagePosted[String(message.embeds[0].footer.text).match(/\((\d{18})\)/)[1]] = {
-          p: true,
-          lc: process.env.threshold + 1,
-          legacy: false,
-          psm: message.id
+    // verify footer exists and grab original message ID
+    if (message.embeds.length > 0 && message.embeds[0].footer) {
+      const footerID = String(message.embeds[0].footer.text).match(/\((\d{18})\)/)
+      if (footerID) {
+        // save post to memory
+        messagePosted[footerID[1]] = {
+          p: true, // is posted
+          lc: process.env.threshold + 1, // reaction amount
+          legacy: false, // is legacy
+          psm: message.id // starboard msg id
         }
       }
     }
