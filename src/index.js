@@ -236,6 +236,6 @@ client.on('message', async message => {
   if (msg.startsWith(prefix + 'starboard')) {
     message.channel.send(`\nLoaded ${Object.keys(messagePosted).length} previous posts in ${process.env.reactionEmoji} channel!`); // results.
   }
-}
+})
 
 login()
