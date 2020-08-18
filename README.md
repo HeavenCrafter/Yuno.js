@@ -10,3 +10,7 @@ NodeJS >=10.0.0
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
+
+## Hosting Platforms
+This project is supported on multiple platforms as long as you know what the fuck you're doing.
+**If you're hosting on Heroku** - Simply just make a config var with the proper names and everything should be fine.
