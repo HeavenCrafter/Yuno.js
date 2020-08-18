@@ -18,6 +18,7 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 I've already went ahead and made 2 files that fits in for both hosting platforms which is -
 
 > Procfile
+
 > .env
 
 **[Heroku]** The `Procfile` file is specifically made for **Heroku** as it is a worker/startup script for Heroku hosting. You can disable the one that came included by default on Heroku and use the one thats made on Yuno.js
