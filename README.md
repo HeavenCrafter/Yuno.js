@@ -12,7 +12,18 @@ NodeJS >=10.0.0
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
 
 ## Hosting Platforms
-This project is supported on multiple platforms as long as you know what the fuck you're doing.
-**If you're hosting on Heroku** - Simply just make a config var with the proper names and everything should be fine.
+**Heroku and Repl.it**
+
+**Yes, Yuno.js and Futaba.js can be ran on Repl.it and Heroku without much effort.**
+I've already went ahead and made 2 files that fits in for both hosting platforms which is -
+
+> Procfile
+> .env
+
+**[Heroku]** The `Procfile` file is specifically made for **Heroku** as it is a worker/startup script for Heroku hosting. You can disable the one that came included by default on Heroku and use the one thats made on Yuno.js
+
+**[Repl.it]** The `.env` file is specifically made for **Repl.it**. Unlike Heroku, Repl.it **DOES NOT** come with a built in .env saving proccess or any sort of config .env variable section, only Heroku has that. Which is why I've already went ahead and installed dotenv npm package just in case if you ever want to use these platforms. You can simply just replace the details in the .env file with what you need.
+
+**IMPORTANT**. Remember, if you're going to use Repl.it, MAKE SURE TO **NOT DELETED** THE .ENV FILE. IT IS ABSOLUTELY NEEDED OR YOUR TOKEN WILL BE SHOWN OUT TO THE PUBLIC.
 
 [![Run on Repl.it](https://repl.it/badge/github/HeavenCrafter/Yuno.js)](https://repl.it/github/HeavenCrafter/Yuno.js)
