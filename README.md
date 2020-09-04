@@ -1,13 +1,6 @@
 # Yuno.js
 
 [![Run on Repl.it](https://repl.it/badge/github/HeavenCrafter/Yuno.js)](https://repl.it/github/HeavenCrafter/Yuno.js)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HeavenCrafter_Futaba.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=HeavenCrafter_Futaba.js)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=HeavenCrafter_Futaba.js&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=HeavenCrafter_Futaba.js)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=HeavenCrafter_Futaba.js&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=HeavenCrafter_Futaba.js)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=HeavenCrafter_Futaba.js&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=HeavenCrafter_Futaba.js)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=HeavenCrafter_Futaba.js&metric=bugs)](https://sonarcloud.io/dashboard?id=HeavenCrafter_Futaba.js)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=HeavenCrafter_Futaba.js&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=HeavenCrafter_Futaba.js)
-
 
 This bot is a fork of [Rushnett's starboard](https://github.com/Rushnett/starboard) but modified to fit for **HeavenHell Entertainment** Discord. Bot token login methods are changed since the original starboard is logged in via a config.json file. It has been changed to use .env files usage instead of a config.json format.
 
